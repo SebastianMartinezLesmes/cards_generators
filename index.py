@@ -58,9 +58,8 @@ if __name__ == "__main__":
     print(salida_validador)
 
     # 📊 Resumen de validación
-# 📊 Resumen de validación desde archivos
     total, validas, invalidas = contar_validas_desde_archivos()
-    resumen = f"\nResumen:\n- Total: {total}\n- Válidas: {validas}\n- Inválidas: {invalidas}\n"
+    resumen = f"Resumen:\n- Total: {total}\n- Válidas: {validas}\n- Inválidas: {invalidas}"
 
     # 🌍 Agrupar por país
     salida_info = ejecutar_script_y_capturar(info_card_path)

@@ -13,10 +13,16 @@ def luhn_verificar(numero):
     return total % 10 == 0
 
 def validar_tarjetas_archivo():
-    proyecto_root = os.path.dirname(os.path.dirname(__file__))
-    archivo_path = os.path.join(proyecto_root, "data", "tarjetas.txt")
-    validas_path = os.path.join(proyecto_root, "data", "validas.txt")
-    invalidas_path = os.path.join(proyecto_root, "data", "invalidas.txt")
+    # Ruta base del proyecto (asegura que funcione desde cualquier lugar)
+    proyecto_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+    carpeta_data = os.path.join(proyecto_root, "data")
+
+    # Asegura que la carpeta data exista
+    os.makedirs(carpeta_data, exist_ok=True)
+
+    archivo_path = os.path.join(carpeta_data, "tarjetas.txt")
+    validas_path = os.path.join(carpeta_data, "validas.txt")
+    invalidas_path = os.path.join(carpeta_data, "invalidas.txt")
 
     if not os.path.exists(archivo_path):
         return "❌ El archivo tarjetas.txt no existe. Genera primero con generador.py", 0, 0

@@ -6,6 +6,7 @@ from function.clear_data import limpiar_carpeta_data
 from function.generador import generar_lista_tarjetas
 from function.validator import validar_tarjetas_archivo
 from function.country import generar_info_card
+from function.clear_cache import eliminar_cache
 
 def guardar_log(contenido):
     log_dir = os.path.join(os.path.dirname(__file__), "data")
@@ -39,3 +40,6 @@ if __name__ == "__main__":
     generar_info_card()
 
     guardar_log(salida_validador + resumen)
+
+    print("\n📦 Limpiando caché de Python...")
+    eliminar_cache()

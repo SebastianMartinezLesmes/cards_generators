@@ -1,3 +1,7 @@
+# cache
+__pycache__
+
+# historial de funcionamiento
 log.txt
 
 # archivos de las tarjetas

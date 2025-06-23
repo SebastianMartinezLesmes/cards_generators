@@ -19,7 +19,7 @@ def validar_tarjetas_archivo():
     invalidas_path = os.path.join(proyecto_root, "data", "invalidas.txt")
 
     if not os.path.exists(archivo_path):
-        return "❌ El archivo tarjetas.txt no existe. Genera primero con generador.py"
+        return "❌ El archivo tarjetas.txt no existe. Genera primero con generador.py", 0, 0
 
     with open(archivo_path, "r") as f:
         tarjetas = f.readlines()
@@ -28,14 +28,20 @@ def validar_tarjetas_archivo():
     tarjetas_validas = []
     tarjetas_invalidas = []
 
+    validas = 0
+    invalidas = 0
+
     for tarjeta in tarjetas:
         tarjeta = tarjeta.strip()
         if not tarjeta:
             continue
+        print(f"🔍 Procesando: {tarjeta} ({len(tarjeta)} dígitos)")
         if luhn_verificar(tarjeta):
+            validas += 1
             resultados.append(f"✅ {tarjeta} es válida")
             tarjetas_validas.append(tarjeta)
         else:
+            invalidas += 1
             resultados.append(f"❌ {tarjeta} NO es válida")
             tarjetas_invalidas.append(tarjeta)
 
@@ -48,7 +54,9 @@ def validar_tarjetas_archivo():
         for i in tarjetas_invalidas:
             f_invalidas.write(i + "\n")
 
-    return "\n".join(resultados)
+    return "\n".join(resultados), validas, invalidas
 
 if __name__ == "__main__":
-    print(validar_tarjetas_archivo())
+    salida, v, i = validar_tarjetas_archivo()
+    print(salida)
+    print(f"\n🧾 Conteo: Total: {v + i}, Válidas: {v}, Inválidas: {i}")

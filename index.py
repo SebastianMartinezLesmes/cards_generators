@@ -19,13 +19,25 @@ def guardar_log(contenido):
 
     print(f"📝 Log guardado en: {log_path}")
 
-def contar_validas(salida):
-    lineas = salida.strip().split("\n")
-    total = len(lineas)
-    print(f"🧾 Conteo de líneas capturadas: {len(lineas)}") 
-    validas = sum(1 for l in lineas if "✅" in l)
-    invalidas = total - validas
+def contar_validas_desde_archivos():
+    proyecto_root = os.path.dirname(os.path.abspath(__file__))
+    validas_path = os.path.join(proyecto_root, "data", "validas.txt")
+    invalidas_path = os.path.join(proyecto_root, "data", "invalidas.txt")
+
+    validas = 0
+    invalidas = 0
+
+    if os.path.exists(validas_path):
+        with open(validas_path, "r") as f:
+            validas = len([line for line in f if line.strip()])
+
+    if os.path.exists(invalidas_path):
+        with open(invalidas_path, "r") as f:
+            invalidas = len([line for line in f if line.strip()])
+
+    total = validas + invalidas
     return total, validas, invalidas
+
 
 if __name__ == "__main__":
     base_dir = os.path.dirname(os.path.abspath(__file__))
@@ -46,7 +58,8 @@ if __name__ == "__main__":
     print(salida_validador)
 
     # 📊 Resumen de validación
-    total, validas, invalidas = contar_validas(salida_validador)
+# 📊 Resumen de validación desde archivos
+    total, validas, invalidas = contar_validas_desde_archivos()
     resumen = f"\nResumen:\n- Total: {total}\n- Válidas: {validas}\n- Inválidas: {invalidas}\n"
 
     # 🌍 Agrupar por país
